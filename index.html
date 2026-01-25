@@ -76,13 +76,21 @@
         /* Scroll Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(30px); /* Default from bottom */
             transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.from-left {
+            transform: translateX(-100px);
+        }
+
+        .reveal.from-right {
+            transform: translateX(100px);
         }
         
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate(0, 0);
         }
 
         /* Enhanced Drop Shadow */
@@ -337,15 +345,15 @@
             <div class="space-y-32">
 
                 <!-- Step 1: Download (Text Left, Image Right) -->
-                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 reveal">
-                     <div class="flex-1 text-center md:text-left order-2 md:order-1">
+                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 overflow-hidden p-2">
+                     <div class="flex-1 text-center md:text-left order-2 md:order-1 reveal from-left">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 font-bold text-xl mb-6">1</div>
                         <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Download the Extension</h3>
                         <p class="text-lg text-slate-500 leading-relaxed">
                             Get the latest version of Study Flow directly from our repository. It comes as a secure ZIP file ready for manual installation.
                         </p>
                     </div>
-                    <div class="flex-1 order-1 md:order-2">
+                    <div class="flex-1 order-1 md:order-2 reveal from-right">
                         <div class="aspect-[4/3] bg-blue-50 rounded-3xl flex items-center justify-center border border-blue-100 shadow-[0_20px_40px_-15px_rgba(59,130,246,0.15)] group hover:scale-[1.02] transition-transform duration-500 overflow-hidden">
                              <img src="asset/install1.png" alt="Download Step" class="w-full h-full object-cover">
                         </div>
@@ -353,13 +361,13 @@
                 </div>
 
                 <!-- Step 2: Extract (Image Left, Text Right) -->
-                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 reveal">
-                    <div class="flex-1 order-1">
+                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 overflow-hidden p-2">
+                    <div class="flex-1 order-1 reveal from-left">
                         <div class="aspect-[4/3] bg-purple-50 rounded-3xl flex items-center justify-center border border-purple-100 shadow-[0_20px_40px_-15px_rgba(147,51,234,0.15)] group hover:scale-[1.02] transition-transform duration-500 overflow-hidden">
                              <img src="asset/install2.png" alt="Extract Step" class="w-full h-full object-cover">
                         </div>
                     </div>
-                     <div class="flex-1 text-center md:text-left order-2">
+                     <div class="flex-1 text-center md:text-left order-2 reveal from-right">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 text-purple-600 font-bold text-xl mb-6">2</div>
                         <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Unzip the File</h3>
                         <p class="text-lg text-slate-500 leading-relaxed">
@@ -369,15 +377,15 @@
                 </div>
 
                 <!-- Step 3: Dev Mode (Text Left, Image Right) -->
-                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 reveal">
-                     <div class="flex-1 text-center md:text-left order-2 md:order-1">
+                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 overflow-hidden p-2">
+                     <div class="flex-1 text-center md:text-left order-2 md:order-1 reveal from-left">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-200 text-slate-700 font-bold text-xl mb-6">3</div>
                         <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Enable Developer Mode</h3>
                         <p class="text-lg text-slate-500 leading-relaxed">
                             Navigate to <code class="bg-slate-100 px-2 py-1 rounded text-base border border-slate-200">chrome://extensions</code> in your browser bar. Toggle the <strong>Developer mode</strong> switch in the top right corner.
                         </p>
                     </div>
-                    <div class="flex-1 order-1 md:order-2">
+                    <div class="flex-1 order-1 md:order-2 reveal from-right">
                         <div class="aspect-[4/3] bg-slate-50 rounded-3xl flex items-center justify-center border border-slate-200 shadow-[0_20px_40px_-15px_rgba(71,85,105,0.15)] group hover:scale-[1.02] transition-transform duration-500 overflow-hidden">
                              <img src="asset/install3.png" alt="Dev Mode Step" class="w-full h-full object-cover object-right">
                         </div>
@@ -385,13 +393,13 @@
                 </div>
 
                 <!-- Step 4: Load Unpacked (Image Left, Text Right) -->
-                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 reveal">
-                    <div class="flex-1 order-1">
+                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 overflow-hidden p-2">
+                    <div class="flex-1 order-1 reveal from-left">
                         <div class="aspect-[4/3] bg-orange-50 rounded-3xl flex items-center justify-center border border-orange-100 shadow-[0_20px_40px_-15px_rgba(234,88,12,0.15)] group hover:scale-[1.02] transition-transform duration-500 overflow-hidden">
                             <img src="asset/install4.png" alt="Load Unpacked Step" class="w-full h-full object-cover object-left">
                         </div>
                     </div>
-                     <div class="flex-1 text-center md:text-left order-2">
+                     <div class="flex-1 text-center md:text-left order-2 reveal from-right">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-orange-100 text-orange-600 font-bold text-xl mb-6">4</div>
                         <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Drag & Drop to Install</h3>
                         <p class="text-lg text-slate-500 leading-relaxed">
@@ -401,15 +409,15 @@
                 </div>
 
                 <!-- Step 5: Success (Text Left, Image Right) -->
-                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 reveal">
-                     <div class="flex-1 text-center md:text-left order-2 md:order-1">
+                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 overflow-hidden p-2">
+                     <div class="flex-1 text-center md:text-left order-2 md:order-1 reveal from-left">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600 font-bold text-xl mb-6">5</div>
                         <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">You're All Set!</h3>
                         <p class="text-lg text-slate-500 leading-relaxed">
                             Study Flow is now active. Pin it to your toolbar and start upgrading your productivity today.
                         </p>
                     </div>
-                    <div class="flex-1 order-1 md:order-2">
+                    <div class="flex-1 order-1 md:order-2 reveal from-right">
                          <div class="aspect-[4/3] bg-green-50 rounded-3xl flex items-center justify-center border border-green-100 shadow-[0_20px_40px_-15px_rgba(22,163,74,0.15)] group hover:scale-[1.02] transition-transform duration-500 overflow-hidden">
                             <img src="asset/install5.png" alt="Success Step" class="w-full h-full object-cover" style="object-position: center 25%;">
                         </div>
