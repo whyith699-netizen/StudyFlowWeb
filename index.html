@@ -9,7 +9,89 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Three.js for 3D Globe -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
+      /* Globe Container */
+      #globe-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+      
+      #globe-canvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      
+      /* Sparkles Effect */
+      .sparkles-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      
+      .sparkle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 1) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: sparkle-float 6s ease-in-out infinite;
+        opacity: 0;
+      }
+      
+      @keyframes sparkle-float {
+        0%, 100% {
+          transform: translateY(0) scale(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-100px) scale(1);
+          opacity: 0.8;
+        }
+        90% {
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(-200px) scale(0.5);
+        }
+      }
+      
+      /* Globe Radial Glow */
+      .globe-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -30%);
+        width: 600px;
+        height: 500px;
+        background: radial-gradient(circle at center, rgba(59, 130, 246, 0.3) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      /* Globe bottom fade mask */
+      .globe-mask {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 200px;
+        background: linear-gradient(to top, #f8fafc 0%, transparent 100%);
+        z-index: 5;
+        pointer-events: none;
+      }
       body {
         font-family: "Space Grotesk", sans-serif;
         background-color: #f8fafc; /* Slate 50 */
@@ -187,7 +269,7 @@
             >Dashboard</a
           >
           <a
-            href="StudyFlow-v1.2.zip"
+            href="StudyFlow-v1.3.zip"
             download
             class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-4 py-2 text-center transition-all shadow-lg hover:shadow-blue-600/30"
             >Get Started</a
@@ -237,8 +319,18 @@
 
     <!-- Hero Section -->
     <section
-      class="relative flex-grow flex flex-col items-center justify-center pt-24 pb-12 perspective-1000 overflow-hidden text-center"
+      class="relative flex-grow flex flex-col items-center justify-center pt-24 pb-12 perspective-1000 overflow-hidden text-center min-h-screen"
     >
+      <!-- 3D Globe Container -->
+      <div id="globe-container">
+        <canvas id="globe-canvas"></canvas>
+        <div class="globe-glow"></div>
+        <div class="globe-mask"></div>
+      </div>
+      
+      <!-- Sparkles Effect -->
+      <div class="sparkles-container" id="sparkles-container"></div>
+      
       <!-- Decorative Ambient Light -->
       <div
         class="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-200/40 rounded-full blur-[120px] -z-10"
@@ -292,7 +384,7 @@
                   <span
                     class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"
                   ></span>
-                  v1.2 Live
+                  v1.3 Live
                 </span>
               </div>
 
@@ -306,7 +398,7 @@
 
               <div class="flex flex-col gap-3 w-full">
                 <a
-                  href="StudyFlow-v1.2.zip"
+                  href="StudyFlow-v1.3.zip"
                   download
                   class="w-full group relative overflow-hidden text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-xl text-lg px-6 py-4 shadow-xl shadow-blue-600/20 transition-all hover:scale-[1.02] active:scale-[0.98] inline-block"
                 >
@@ -912,6 +1004,227 @@
       function setTranslate(xPos, yPos, el) {
         el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) scale(1.1)`;
       }
+
+      // ============================================
+      // 3D GLOBE INITIALIZATION (Three.js)
+      // ============================================
+      function initGlobe() {
+        const canvas = document.getElementById('globe-canvas');
+        const container = document.getElementById('globe-container');
+        
+        if (!canvas || !container) return;
+        
+        // Scene Setup
+        const scene = new THREE.Scene();
+        
+        // Camera Setup
+        const camera = new THREE.PerspectiveCamera(
+          45, 
+          window.innerWidth / window.innerHeight, 
+          0.1, 
+          1000
+        );
+        camera.position.z = 3.5;
+        
+        // Renderer Setup
+        const renderer = new THREE.WebGLRenderer({ 
+          canvas: canvas, 
+          antialias: true, 
+          alpha: true 
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // Globe Geometry
+        const globeRadius = 1.2;
+        const sphereGeometry = new THREE.SphereGeometry(globeRadius, 64, 64);
+        
+        // Custom Shader Material for Earth-like Globe
+        const globeMaterial = new THREE.ShaderMaterial({
+          uniforms: {
+            uTime: { value: 0 },
+            uColor1: { value: new THREE.Color(0x1d4ed8) }, // Blue 700
+            uColor2: { value: new THREE.Color(0x3b82f6) }, // Blue 500
+            uColor3: { value: new THREE.Color(0x60a5fa) }, // Blue 400
+          },
+          vertexShader: `
+            varying vec2 vUv;
+            varying vec3 vNormal;
+            varying vec3 vPosition;
+            
+            void main() {
+              vUv = uv;
+              vNormal = normalize(normalMatrix * normal);
+              vPosition = position;
+              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+          `,
+          fragmentShader: `
+            uniform float uTime;
+            uniform vec3 uColor1;
+            uniform vec3 uColor2;
+            uniform vec3 uColor3;
+            
+            varying vec2 vUv;
+            varying vec3 vNormal;
+            varying vec3 vPosition;
+            
+            // Simple noise function
+            float noise(vec2 st) {
+              return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+            }
+            
+            void main() {
+              // Fresnel effect for rim glow
+              vec3 viewDirection = normalize(cameraPosition - vPosition);
+              float fresnel = pow(1.0 - dot(viewDirection, vNormal), 2.5);
+              
+              // Gradient based on latitude
+              float latitude = vUv.y;
+              vec3 baseColor = mix(uColor1, uColor2, latitude);
+              
+              // Add grid pattern for high-tech look
+              float gridX = step(0.02, mod(vUv.x * 30.0 + uTime * 0.1, 1.0));
+              float gridY = step(0.02, mod(vUv.y * 30.0, 1.0));
+              float grid = 1.0 - (1.0 - gridX) * (1.0 - gridY);
+              
+              // Landmass-like pattern using noise
+              float n = noise(vUv * 10.0 + uTime * 0.05);
+              float landmass = smoothstep(0.4, 0.6, n);
+              
+              // Mix colors
+              vec3 finalColor = mix(baseColor, uColor3, landmass * 0.5);
+              finalColor = mix(finalColor, uColor3, grid * 0.15);
+              
+              // Add rim glow
+              finalColor += vec3(0.3, 0.5, 1.0) * fresnel * 0.8;
+              
+              // Atmospheric fade at edges
+              float alpha = 1.0 - fresnel * 0.3;
+              
+              gl_FragColor = vec4(finalColor, alpha * 0.9);
+            }
+          `,
+          transparent: true,
+          side: THREE.FrontSide
+        });
+        
+        const globe = new THREE.Mesh(sphereGeometry, globeMaterial);
+        scene.add(globe);
+        
+        // Atmosphere Glow Ring
+        const atmosphereGeometry = new THREE.SphereGeometry(globeRadius * 1.15, 64, 64);
+        const atmosphereMaterial = new THREE.ShaderMaterial({
+          uniforms: {},
+          vertexShader: `
+            varying vec3 vNormal;
+            void main() {
+              vNormal = normalize(normalMatrix * normal);
+              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+          `,
+          fragmentShader: `
+            varying vec3 vNormal;
+            void main() {
+              float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+              gl_FragColor = vec4(0.3, 0.6, 1.0, 0.3) * intensity;
+            }
+          `,
+          transparent: true,
+          side: THREE.BackSide,
+          blending: THREE.AdditiveBlending
+        });
+        
+        const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+        scene.add(atmosphere);
+        
+        // Connection points on globe
+        const pointsGroup = new THREE.Group();
+        for (let i = 0; i < 50; i++) {
+          const phi = Math.acos(-1 + (2 * i) / 50);
+          const theta = Math.sqrt(50 * Math.PI) * phi;
+          
+          const pointGeometry = new THREE.SphereGeometry(0.015, 8, 8);
+          const pointMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x60a5fa,
+            transparent: true,
+            opacity: 0.8
+          });
+          
+          const point = new THREE.Mesh(pointGeometry, pointMaterial);
+          point.position.setFromSphericalCoords(globeRadius * 1.01, phi, theta);
+          pointsGroup.add(point);
+        }
+        scene.add(pointsGroup);
+        
+        // Animation
+        let time = 0;
+        
+        function animate() {
+          requestAnimationFrame(animate);
+          
+          time += 0.01;
+          
+          // Rotate globe
+          globe.rotation.y += 0.002;
+          pointsGroup.rotation.y += 0.002;
+          atmosphere.rotation.y += 0.001;
+          
+          // Update shader time
+          globeMaterial.uniforms.uTime.value = time;
+          
+          renderer.render(scene, camera);
+        }
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        animate();
+      }
+      
+      // ============================================
+      // SPARKLES EFFECT INITIALIZATION
+      // ============================================
+      function initSparkles() {
+        const container = document.getElementById('sparkles-container');
+        if (!container) return;
+        
+        const sparkleCount = 100;
+        
+        for (let i = 0; i < sparkleCount; i++) {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          
+          // Random position
+          sparkle.style.left = Math.random() * 100 + '%';
+          sparkle.style.top = (50 + Math.random() * 50) + '%';
+          
+          // Random animation delay
+          sparkle.style.animationDelay = Math.random() * 6 + 's';
+          
+          // Random size
+          const size = 2 + Math.random() * 4;
+          sparkle.style.width = size + 'px';
+          sparkle.style.height = size + 'px';
+          
+          // Random color (blue variants)
+          const colors = ['rgba(59, 130, 246, 1)', 'rgba(96, 165, 250, 1)', 'rgba(147, 197, 253, 1)'];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          sparkle.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+          
+          container.appendChild(sparkle);
+        }
+      }
+      
+      // Initialize Globe and Sparkles when DOM is ready
+      document.addEventListener('DOMContentLoaded', () => {
+        initGlobe();
+        initSparkles();
+      });
     </script>
   </body>
 </html>
