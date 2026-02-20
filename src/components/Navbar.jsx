@@ -12,14 +12,6 @@ export default function Navbar() {
 
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-3">
           <a
-            href={DASHBOARD_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 bg-white border border-blue-200 hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-100 font-bold rounded-lg text-sm px-4 py-2 text-center transition-all hidden md:block"
-          >
-            Dashboard
-          </a>
-          <a
             href={DOWNLOAD_URL}
             download
             className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-4 py-2 text-center transition-all shadow-lg hover:shadow-blue-600/30"
