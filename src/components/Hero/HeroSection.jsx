@@ -1,7 +1,4 @@
 import { useRef, useCallback } from 'react'
-import Globe from './Globe'
-import Sparkles from './Sparkles'
-import DraggableOrb from './DraggableOrb'
 import DownloadBox from './DownloadBox'
 
 export default function HeroSection() {
@@ -30,13 +27,8 @@ export default function HeroSection() {
 
   return (
     <section className="relative flex-grow flex flex-col items-center justify-center pt-24 pb-12 perspective-1000 overflow-hidden text-center min-h-screen">
-      <Globe />
-      <Sparkles />
-
       {/* Decorative Ambient Light */}
       <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-200/40 rounded-full blur-[120px] -z-10" />
-
-      <DraggableOrb />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 flex flex-col items-center w-full">
         {/* Title */}
