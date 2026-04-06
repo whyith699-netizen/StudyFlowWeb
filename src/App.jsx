@@ -1,18 +1,26 @@
 import Navbar from './components/Navbar'
-import HeroSection from './components/Hero/HeroSection'
-import BentoGrid from './components/Features/BentoGrid'
-import StickyScroll from './components/StickyScroll'
-import InstallSection from './components/Installation/InstallSection'
+import HeroSection from './components/portal/HeroSection'
+import AboutSection from './components/portal/AboutSection'
+import FeatureObservatory from './components/portal/FeatureObservatory'
+import ProductMatrix from './components/portal/ProductMatrix'
+import InstallHub from './components/portal/InstallHub'
+import DownloadSection from './components/portal/DownloadSection'
 import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="bg-mesh text-slate-900 min-h-screen overflow-x-hidden flex flex-col">
+    <div className="min-h-screen bg-page text-slate-950">
       <Navbar />
-      <HeroSection />
-      <BentoGrid />
-      <StickyScroll />
-      <InstallSection />
+
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <FeatureObservatory />
+        <ProductMatrix />
+        <InstallHub />
+        <DownloadSection />
+      </main>
+
       <Footer />
     </div>
   )

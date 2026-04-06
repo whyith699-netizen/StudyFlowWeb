@@ -1,140 +1,162 @@
-export const DOWNLOAD_URL = 'StudyFlow-v1.3.zip'
-export const DASHBOARD_URL = 'https://whyith699-netizen.github.io/StudyFlowDasboarduser/'
-export const GITHUB_URL = 'https://github.com/whyith699-netizen/StudyFlow'
-export const VERSION = '1.3'
+export const navItems = [
+  { label: 'Home', href: '#home' },
+  { label: 'Workspace', href: '#about' },
+  { label: 'Features', href: '#features' },
+  { label: 'Clarity', href: '#clarity' },
+  { label: 'Start', href: '#start' },
+]
+
+export const downloadArtifacts = {
+  extension: {
+    id: 'extension',
+    label: 'Chrome Extension',
+    shortLabel: 'Extension',
+    version: 'v1.5.0',
+    href: './downloads/studyflow-extension-v1.5.0.zip',
+    action: 'download',
+    buttonLabel: 'Download Extension',
+    helper: 'Manual install package for Chrome and Edge',
+    fileName: 'studyflow-extension-v1.5.0.zip',
+    platform: 'Chrome, Edge',
+  },
+  web: {
+    id: 'web',
+    label: 'Web Application',
+    shortLabel: 'Web App',
+    version: 'Live',
+    href: 'https://whyith699-netizen.github.io/StudyFlowDasboarduser/',
+    action: 'external',
+    buttonLabel: 'Open Web App',
+    helper: 'Live dashboard for any modern browser',
+    platform: 'Web',
+  },
+  webPackage: {
+    id: 'webPackage',
+    label: 'Web Package ZIP',
+    shortLabel: 'Web ZIP',
+    version: 'v1.5.0',
+    href: './downloads/studyflow-web-v1.5.0.zip',
+    action: 'download',
+    buttonLabel: 'Download Web ZIP',
+    helper: 'Static web build for archive or manual hosting',
+    fileName: 'studyflow-web-v1.5.0.zip',
+    platform: 'Web ZIP',
+  },
+  android: {
+    id: 'android',
+    label: 'Android APK',
+    shortLabel: 'Android',
+    version: 'v1.5.0',
+    href: './downloads/studyflow-android-v1.5.0.apk',
+    action: 'download',
+    buttonLabel: 'Download APK',
+    helper: 'Android-only mobile companion for reminders and focus sessions',
+    fileName: 'studyflow-android-v1.5.0.apk',
+    platform: 'Android',
+  },
+}
+
+export const workspaceHighlights = [
+  {
+    title: 'Organize everything in one view',
+    text: 'Track classes, assignments, and focus time without splitting your workflow across disconnected tools.',
+  },
+  {
+    title: 'Stay synced across your devices',
+    text: 'Move from browser extension to the live web dashboard to the Android companion while keeping the same study system.',
+  },
+]
 
 export const featureCards = [
   {
-    title: 'Smart Dashboard',
-    description: 'All your tasks and classes at a glance.',
-    image: 'assets/dashboard.png',
-    bgColor: 'bg-blue-50/50',
-    hoverBgColor: 'group-hover:bg-blue-50/80',
-    colSpan: 'md:col-span-2',
-    imageClass: 'object-cover object-top',
-    isLarge: true,
+    id: 'prioritization',
+    title: 'Smart Task Prioritization',
+    description: 'Sort upcoming work by urgency, subject, and effort so you know what deserves attention first.',
   },
   {
-    title: 'Task Tracking',
-    description: 'Never miss a deadline.',
-    image: 'assets/tasks.png',
-    bgColor: 'bg-purple-50/50',
-    hoverBgColor: 'group-hover:bg-purple-50/80',
-    delay: '100ms',
-    hoverEffect: 'group-hover:scale-105',
-    imageClass: 'object-cover',
+    id: 'analytics',
+    title: 'Deep Work Analytics',
+    description: 'Visualize how consistent your study sessions are and where your weekly focus time actually goes.',
   },
   {
-    title: 'Drag & Drop',
-    description: 'Seamlessly organize your classes.',
-    image: 'assets/drag-drop.png',
-    bgColor: 'bg-green-50/50',
-    hoverBgColor: 'group-hover:bg-green-50/80',
-    hoverEffect: 'group-hover:rotate-1',
-    imageClass: 'object-cover',
+    id: 'materials',
+    title: 'Course Material Hub',
+    description: 'Keep key links, notes, and reading references grouped by class instead of scattered across tabs.',
   },
   {
-    title: 'Account Sync',
-    description: 'Keep your data safe across devices.',
-    image: 'assets/accountsyn.png',
-    bgColor: 'bg-indigo-50/50',
-    hoverBgColor: 'group-hover:bg-indigo-50/80',
-    delay: '100ms',
-    hoverEffect: 'group-hover:scale-105',
-    imageClass: 'object-cover',
+    id: 'focus',
+    title: 'Focus Mode Timer',
+    description: 'Start quick Pomodoro sessions and keep your most important task visible while the timer is running.',
   },
   {
-    title: 'Easy Setup',
-    description: 'Get started in seconds.',
-    image: 'assets/add-class.png',
-    bgColor: 'bg-orange-50/50',
-    hoverBgColor: 'group-hover:bg-orange-50/80',
-    delay: '200ms',
-    hoverEffect: 'group-hover:-rotate-1',
-    imageClass: 'object-cover object-left',
+    id: 'deadlines',
+    title: 'Automated Deadlines',
+    description: 'Surface due dates clearly so missed assignments stop sneaking up on you at the end of the week.',
   },
 ]
 
-export const stickyScrollItems = [
+export const clarityFields = [
+  { label: 'Weekly Progress', value: '84% of your planned sessions completed' },
+  { label: 'Next Deadline', value: 'Operating Systems report due tomorrow' },
+  { label: 'Focus Goal', value: '2 deep work blocks left for today' },
+]
+
+export const platformCards = [
   {
-    image: 'assets/dashboard.png',
-    title: 'Your Hub for Success.',
-    description: 'Access everything from a single, beautiful dashboard. View upcoming tests and your daily schedule without the clutter.',
+    id: 'extension',
+    title: 'Chrome Extension',
+    description: 'Quick access to classes, tasks, and study shortcuts directly from your browser toolbar.',
   },
   {
-    image: 'assets/tasks.png',
-    title: 'Organize Chaos.',
-    description: 'Add and edit tasks, set smart reminders, and sync with your calendar. Never let a due date slip through the cracks again.',
+    id: 'web',
+    title: 'Web Application',
+    description: 'A complete planning workspace with dashboard views, reports, notes, and schedule tracking, plus a downloadable static web package.',
   },
   {
-    image: 'assets/drag-drop.png',
-    title: 'Flexible Planning.',
-    description: 'Effortlessly drag and drop items to reschedule. Customize your workflow to fit your unique study style.',
+    id: 'android',
+    title: 'Android Application',
+    description: 'An Android-only companion for reminders, focus sessions, and lightweight task check-ins during the day.',
   },
 ]
 
-export const installSteps = [
+export const extensionInstallSteps = [
   {
-    step: 1,
-    title: 'Download the Extension',
-    description: 'Get the latest version of Study Flow directly from our repository. It comes as a secure ZIP file ready for manual installation.',
-    image: 'assets/install1.png',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-100',
-    shadowColor: 'rgba(59,130,246,0.15)',
-    numberBg: 'bg-blue-100',
-    numberText: 'text-blue-600',
-    imageClass: 'object-cover',
+    title: 'Download the extension package',
+    description: 'Grab the latest ZIP package, then extract it to a permanent folder on your computer.',
   },
   {
-    step: 2,
-    title: 'Unzip the File',
-    description: 'Locate the downloaded file and extract it. You should see a folder containing the manifest and source files.',
-    image: 'assets/install2.png',
-    bgColor: 'bg-purple-50',
-    borderColor: 'border-purple-100',
-    shadowColor: 'rgba(147,51,234,0.15)',
-    numberBg: 'bg-purple-100',
-    numberText: 'text-purple-600',
-    imageClass: 'object-cover',
-    reversed: true,
+    title: 'Open the browser extension page',
+    description: 'Go to chrome://extensions in Chrome or edge://extensions in Microsoft Edge.',
   },
   {
-    step: 3,
-    title: 'Enable Developer Mode',
-    description: 'Navigate to chrome://extensions in your browser bar. Toggle the Developer mode switch in the top right corner.',
-    image: 'assets/install3.png',
-    bgColor: 'bg-slate-50',
-    borderColor: 'border-slate-200',
-    shadowColor: 'rgba(71,85,105,0.15)',
-    numberBg: 'bg-slate-200',
-    numberText: 'text-slate-700',
-    imageClass: 'object-cover object-right',
+    title: 'Enable Developer Mode and load the folder',
+    description: 'Turn on Developer Mode, click Load unpacked, and choose the extracted StudyFlow extension folder.',
   },
   {
-    step: 4,
-    title: 'Drag & Drop to Install',
-    description: 'Simply drag the extracted folder directly into the extensions window. Alternatively, click "Load unpacked" and select the folder.',
-    image: 'assets/install4.png',
-    bgColor: 'bg-orange-50',
-    borderColor: 'border-orange-100',
-    shadowColor: 'rgba(234,88,12,0.15)',
-    numberBg: 'bg-orange-100',
-    numberText: 'text-orange-600',
-    imageClass: 'object-cover object-left',
-    reversed: true,
-  },
-  {
-    step: 5,
-    title: "You're All Set!",
-    description: 'Study Flow is now active. Pin it to your toolbar and start upgrading your productivity today.',
-    image: 'assets/install5.png',
-    bgColor: 'bg-green-50',
-    borderColor: 'border-green-100',
-    shadowColor: 'rgba(22,163,74,0.15)',
-    numberBg: 'bg-green-100',
-    numberText: 'text-green-600',
-    imageClass: 'object-cover',
-    imageStyle: { objectPosition: 'center 25%' },
+    title: 'Pin StudyFlow to the toolbar',
+    description: 'Pin the extension so you can open classes, tasks, and shortcuts directly from the browser toolbar.',
   },
 ]
+
+export const androidInstallNotes = [
+  'The mobile app is available only for Android in this release.',
+  'Install the APK manually on your Android device and allow installation from unknown sources if prompted.',
+  'There is no iOS build or App Store package yet.',
+]
+
+export const siteCopy = {
+  badge: 'StudyFlow',
+  heroTitle: 'One dashboard to master your academic life',
+  heroSubtitle:
+    'The integrated workspace for tasks, focus sessions, course planning, and deadlines across your browser extension, live web dashboard, and Android companion.',
+  heroSupport: 'Built for students who want a calmer way to study, plan, and stay consistent.',
+  sectionTitles: {
+    workspace: 'Integrated Study Workspace',
+    features: 'Experience a better way to study.',
+    clarity: 'Crafted for Clarity',
+    start: 'Get Started Everywhere',
+    cta: 'Ready to reclaim your focus?',
+  },
+  bottomCtaDescription:
+    'Open the live dashboard, download the web package, install the extension, and keep the Android companion ready when you need it.',
+}
