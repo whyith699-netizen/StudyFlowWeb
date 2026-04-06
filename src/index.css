@@ -61,15 +61,11 @@ button {
 }
 
 .nav-logo-mark {
-  display: inline-flex;
-  height: 2.75rem;
-  width: 2.75rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1rem;
-  background: linear-gradient(180deg, #2f80ff, #1769e7);
-  color: #fff;
-  font-weight: 800;
+  display: block;
+  height: 2.95rem;
+  width: 2.95rem;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .nav-cta,

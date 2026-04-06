@@ -8,13 +8,14 @@ function getLinkProps(item) {
 
 export default function Navbar() {
   const extension = downloadArtifacts.extension
+  const brandLogo = `${import.meta.env.BASE_URL}assets/studyflow-brand-logo.png`
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4 md:px-6">
       <div className="mx-auto max-w-6xl">
         <nav className="nav-shell">
           <a href="#home" className="flex items-center gap-3 text-slate-950">
-            <span className="nav-logo-mark">S</span>
+            <img src={brandLogo} alt="StudyFlow logo" className="nav-logo-mark" />
             <span className="leading-none">
               <span className="block text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-sky-700">
                 StudyFlow
