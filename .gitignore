@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Vite default output (we use docs/ instead)
+dist/
+
+# Environment
+.env
+.env.local
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Old backup
+index.old.html
