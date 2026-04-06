@@ -8,7 +8,6 @@ function getLinkProps(item) {
 
 export default function DownloadSection() {
   const web = downloadArtifacts.web
-  const webPackage = downloadArtifacts.webPackage
 
   return (
     <section className="px-4 pb-10 pt-8 md:px-6 md:pb-14 md:pt-10">
@@ -22,18 +21,9 @@ export default function DownloadSection() {
             {siteCopy.bottomCtaDescription}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a href={web.href} {...getLinkProps(web)} className="cta-banner-button">
-              {web.buttonLabel}
-            </a>
-            <a
-              href={webPackage.href}
-              {...getLinkProps(webPackage)}
-              className="inline-flex items-center justify-center rounded-full border border-white/24 bg-white/12 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/18"
-            >
-              {webPackage.buttonLabel}
-            </a>
-          </div>
+          <a href={web.href} {...getLinkProps(web)} className="mt-8 inline-flex cta-banner-button">
+            {web.buttonLabel}
+          </a>
         </div>
       </div>
     </section>

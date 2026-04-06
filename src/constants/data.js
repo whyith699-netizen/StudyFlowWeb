@@ -30,18 +30,6 @@ export const downloadArtifacts = {
     helper: 'Live dashboard for any modern browser',
     platform: 'Web',
   },
-  webPackage: {
-    id: 'webPackage',
-    label: 'Web Package ZIP',
-    shortLabel: 'Web ZIP',
-    version: 'v1.5.0',
-    href: './downloads/studyflow-web-v1.5.0.zip',
-    action: 'download',
-    buttonLabel: 'Download Web ZIP',
-    helper: 'Static web build for archive or manual hosting',
-    fileName: 'studyflow-web-v1.5.0.zip',
-    platform: 'Web ZIP',
-  },
   android: {
     id: 'android',
     label: 'Android APK',
@@ -110,7 +98,7 @@ export const platformCards = [
   {
     id: 'web',
     title: 'Web Application',
-    description: 'A complete planning workspace with dashboard views, reports, notes, and schedule tracking, plus a downloadable static web package.',
+    description: 'A complete planning workspace with dashboard views, reports, notes, and schedule tracking through the live GitHub Pages deployment.',
   },
   {
     id: 'android',
@@ -158,5 +146,5 @@ export const siteCopy = {
     cta: 'Ready to reclaim your focus?',
   },
   bottomCtaDescription:
-    'Open the live dashboard, download the web package, install the extension, and keep the Android companion ready when you need it.',
+    'Open the live dashboard, install the extension, and keep the Android companion ready when you need it.',
 }

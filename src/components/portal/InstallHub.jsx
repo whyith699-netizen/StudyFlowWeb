@@ -48,7 +48,6 @@ function getPrimaryButtonClass(isPrimary) {
 }
 
 export default function InstallHub() {
-  const webPackage = downloadArtifacts.webPackage
   const android = downloadArtifacts.android
 
   return (
@@ -57,7 +56,7 @@ export default function InstallHub() {
         <SectionHeader
           eyebrow="Platforms"
           title={siteCopy.sectionTitles.start}
-          description="Choose the StudyFlow entry point that fits your workflow today. Extension, live web, web package ZIP, and Android are all available from one place."
+          description="Choose the StudyFlow entry point that fits your workflow today. Extension, live web, and Android are all available from one place."
           align="center"
         />
 
@@ -83,16 +82,6 @@ export default function InstallHub() {
                   <a href={item.href} {...getLinkProps(item)} className={getPrimaryButtonClass(isPrimary)}>
                     {item.buttonLabel}
                   </a>
-
-                  {card.id === 'web' ? (
-                    <a
-                      href={webPackage.href}
-                      {...getLinkProps(webPackage)}
-                      className="inline-flex w-full items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
-                    >
-                      {webPackage.buttonLabel}
-                    </a>
-                  ) : null}
                 </div>
               </article>
             )
