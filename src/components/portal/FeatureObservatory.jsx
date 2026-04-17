@@ -1,5 +1,9 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import SectionHeader from '../SectionHeader'
+import MotionGroup from '../motion/MotionGroup'
+import MotionSection from '../motion/MotionSection'
 import { featureCards, siteCopy } from '../../constants/data'
+import { getRevealVariant } from '../../motion/variants'
 
 function TaskPreview() {
   return (
@@ -121,36 +125,46 @@ const previewMap = {
 }
 
 export default function FeatureObservatory() {
-  return (
-    <section id="features" className="px-4 py-16 md:px-6 md:py-24">
-      <div className="mx-auto max-w-6xl">
-        <SectionHeader
-          eyebrow="Feature Snapshot"
-          title={siteCopy.sectionTitles.features}
-          description="The StudyFlow experience is built around the moments students repeat every day: deciding what matters now, starting a focus block, and keeping deadlines visible."
-          align="center"
-        />
+  const reduceMotion = useReducedMotion()
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+  return (
+    <MotionSection id="features" className="px-4 py-16 md:px-6 md:py-24" variant="fade-up">
+      <div className="mx-auto max-w-6xl">
+        <motion.div variants={getRevealVariant('fade-up', reduceMotion)}>
+          <SectionHeader
+            eyebrow="Feature Snapshot"
+            title={siteCopy.sectionTitles.features}
+            description="The StudyFlow experience is built around the moments students repeat every day: deciding what matters now, starting a focus block, and keeping deadlines visible."
+            align="center"
+          />
+        </motion.div>
+
+        <MotionGroup className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3" stagger={0.12}>
           {featureCards.map((card) => {
             const Preview = previewMap[card.id]
             const emphasis = card.id === 'focus' ? 'card-focus' : ''
 
             return (
-              <article key={card.id} className={`landing-card p-6 ${emphasis}`}>
+              <motion.article
+                key={card.id}
+                className={`landing-card motion-card p-6 ${emphasis}`}
+                variants={getRevealVariant('scale-in', reduceMotion)}
+                whileHover={reduceMotion ? undefined : { y: -8, scale: 1.012 }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              >
                 <div>
                   <h3 className="text-xl font-semibold text-slate-950">{card.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{card.description}</p>
                 </div>
 
-                <div className="mt-6">
+                <motion.div className="mt-6" variants={getRevealVariant('fade-up', reduceMotion)}>
                   <Preview />
-                </div>
-              </article>
+                </motion.div>
+              </motion.article>
             )
           })}
-        </div>
+        </MotionGroup>
       </div>
-    </section>
+    </MotionSection>
   )
 }

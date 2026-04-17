@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { downloadArtifacts, navItems } from '../constants/data'
 
 function getLinkProps(item) {
@@ -7,13 +9,35 @@ function getLinkProps(item) {
 }
 
 export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const reduceMotion = useReducedMotion()
   const extension = downloadArtifacts.extension
   const brandLogo = `${import.meta.env.BASE_URL}assets/studyflow-brand-logo.png`
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 36)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="sticky top-0 z-50 px-4 pt-4 md:px-6">
+    <motion.header
+      className="sticky top-0 z-50 px-4 pt-4 md:px-6"
+      initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -22 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
+    >
       <div className="mx-auto max-w-6xl">
-        <nav className="nav-shell">
+        <motion.nav
+          className={`nav-shell ${isScrolled ? 'nav-shell-scrolled' : ''}`}
+          animate={reduceMotion ? { opacity: 1 } : { scale: isScrolled ? 0.985 : 1, y: isScrolled ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
           <a href="#home" className="flex items-center gap-3 text-slate-950">
             <img src={brandLogo} alt="StudyFlow logo" className="nav-logo-mark" />
             <span className="leading-none">
@@ -27,18 +51,30 @@ export default function Navbar() {
           <ul className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="text-sm font-medium text-slate-500 transition hover:text-slate-900">
+                <motion.a
+                  href={item.href}
+                  className="text-sm font-medium text-slate-500 transition hover:text-slate-900"
+                  whileHover={reduceMotion ? undefined : { y: -2 }}
+                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                >
                   {item.label}
-                </a>
+                </motion.a>
               </li>
             ))}
           </ul>
 
-          <a href={extension.href} {...getLinkProps(extension)} className="nav-cta">
+          <motion.a
+            href={extension.href}
+            {...getLinkProps(extension)}
+            className="nav-cta"
+            whileHover={reduceMotion ? undefined : { y: -3, scale: 1.02 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.985 }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+          >
             {extension.buttonLabel}
-          </a>
-        </nav>
+          </motion.a>
+        </motion.nav>
       </div>
-    </header>
+    </motion.header>
   )
 }
